@@ -1,33 +1,43 @@
 package mubeenkhan.depot.model;
 
 public class Customer {
-    private int seqNo;       // Sequence number of the customer in the queue
-    private String name;     // Name of the customer
-    private String parcelId; // The ID of the parcel that the customer wants to collect
+    private int queueNumber;
+    private String name;
+    private String parcelID;
 
-    // Constructor to initialize a new Customer object
-    public Customer(int seqNo, String name, String parcelId) {
-        this.seqNo = seqNo;
+    public Customer(int queueNumber, String name, String parcelID) {
+        this.queueNumber = queueNumber;
         this.name = name;
-        this.parcelId = parcelId;
+        this.parcelID = parcelID;
     }
 
-    // Getters for the customer properties
-    public int getSeqNo() {
-        return seqNo;
+    // Getters and Setters
+    public int getQueueNumber() {
+        return queueNumber;
+    }
+
+    public void setQueueNumber(int queueNumber) {
+        this.queueNumber = queueNumber;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getParcelId() {
-        return parcelId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    // Override toString() to provide a meaningful string representation of the Customer
+    public String getParcelID() {
+        return parcelID;
+    }
+
+    public void setParcelID(String parcelID) {
+        this.parcelID = parcelID;
+    }
+
     @Override
     public String toString() {
-        return "Customer [Seq No=" + seqNo + ", Name=" + name + ", Parcel ID=" + parcelId + "]";
+        return "Customer [Queue No=" + queueNumber + ", Name=" + name + ", Parcel ID=" + parcelID + "]";
     }
 }

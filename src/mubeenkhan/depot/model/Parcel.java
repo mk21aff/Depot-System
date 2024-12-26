@@ -1,62 +1,103 @@
 package mubeenkhan.depot.model;
 
 public class Parcel {
-    private String id;           // The unique ID for the parcel
-    private int daysInDepot;     // Number of days the parcel has been in the depot
-    private double weight;       // The weight of the parcel
-    private String dimensions;   // The dimensions (length x width x height) of the parcel
-    private boolean isCollected; // A flag to indicate whether the parcel has been collected
+    private String parcelID;
+    private boolean isCollected;
+    private String customerName;
+    private double length;
+    private double width;
+    private double height;
+    private double weight;
+    private int daysInDepot;
 
-    // Constructor to initialize a new Parcel object with necessary details
-    public Parcel(String id, int daysInDepot, double weight, String dimensions) {
-        this.id = id;
-        this.daysInDepot = daysInDepot;
+    // Constructor
+    public Parcel(String parcelID, boolean isCollected, String customerName, double length, double width, double height, double weight, int daysInDepot) {
+        this.parcelID = parcelID;
+        this.isCollected = isCollected;
+        this.customerName = customerName;
+        this.length = length;
+        this.width = width;
+        this.height = height;
         this.weight = weight;
-        this.dimensions = dimensions;
-        this.isCollected = false; // Parcel is initially not collected
+        this.daysInDepot = daysInDepot;
     }
 
-    // Getters for the parcel properties
-    public String getId() {
-        return id;
+    // Getters and setters
+    public String getParcelID() {
+        return parcelID;
     }
 
-    public int getDaysInDepot() {
-        return daysInDepot;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public String getDimensions() {
-        return dimensions;
+    public void setParcelID(String parcelID) {
+        this.parcelID = parcelID;
     }
 
     public boolean isCollected() {
         return isCollected;
     }
 
-    // Set the status of the parcel as collected
     public void setCollected(boolean isCollected) {
         this.isCollected = isCollected;
     }
 
-    // This method calculates the collection fee based on various factors
-    public double calculateCollectionFee() {
-        // Base fee calculated from weight and number of days in depot
-        double fee = weight * 0.5 + daysInDepot * 1.0;
-
-        // Apply a discount if the parcel's ID starts with 'C'
-        if (id.startsWith("C")) {
-            fee -= 2.0; // A discount for parcels starting with 'C'
-        }
-        return fee;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    // Override toString() to provide a meaningful string representation of the Parcel
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public int getDaysInDepot() {
+        return daysInDepot;
+    }
+
+    public void setDaysInDepot(int daysInDepot) {
+        this.daysInDepot = daysInDepot;
+    }
+
     @Override
     public String toString() {
-        return "Parcel [ID=" + id + ", Days in Depot=" + daysInDepot + ", Weight=" + weight + ", Dimensions=" + dimensions + "]";
+        return "Parcel{" +
+                "parcelID='" + parcelID + '\'' +
+                ", isCollected=" + isCollected +
+                ", customerName='" + customerName + '\'' +
+                ", length=" + length +
+                ", width=" + width +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", daysInDepot=" + daysInDepot +
+                '}';
     }
 }
