@@ -7,5 +7,10 @@ public class Main {
         Worker worker = new Worker();
         worker.initializeData();
         worker.processQueue();
+     //worker.addNewParcel();
+    //View all parcels
+     // worker.viewParcels();
+     // Add a new customer to the queue (prompts for name and assigns a parcel)
+     worker.addCustomerToQueue();
     }
 }

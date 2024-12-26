@@ -9,8 +9,16 @@ public class QueueManager {
     private Map<String, Parcel> parcelDepot = new HashMap<>();
     private int queueCounter = 1;
 
+    // Modify this method to accept name and parcelID arguments
     public void addCustomerToQueue(String name, String parcelID) {
-        customerQueue.add(new Customer(queueCounter++, name, parcelID));
+        // Ensure the parcel exists in the depot
+        Parcel parcel = parcelDepot.get(parcelID);
+        if (parcel != null) {
+            customerQueue.add(new Customer(queueCounter++, name, parcelID));
+            System.out.println("Customer " + name + " added to the queue with Parcel ID: " + parcelID);
+        } else {
+            System.out.println("No parcel found with ID: " + parcelID);
+        }
     }
 
     public void processCustomerQueue() {
