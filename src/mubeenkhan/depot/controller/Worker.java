@@ -40,60 +40,29 @@ public class Worker {
         queueManager.processCustomerQueue();
     }
 
-    public void addNewParcel() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            // Ensure data is initialized
-            if (parcels.isEmpty()) {
-                initializeData();
-            }
+    public void addNewParcel(String parcelID, boolean isCollected, String customerName, 
+            double length, double width, double height, 
+            double weight, int daysInDepot) {
+try {
+// Create a new Parcel object
+Parcel newParcel = new Parcel(parcelID, isCollected, customerName, length, 
+                        width, height, weight, daysInDepot);
 
-            // Debug: Print current size of the list
-            System.out.println("Current number of parcels: " + parcels.size());
+// Add the new parcel to the list
+parcels.add(newParcel);
 
-            // Get parcel details from user input
-            System.out.print("Enter Parcel ID: ");
-            String parcelID = scanner.nextLine();
+// Debug: Print updated size of the list
+System.out.println("Updated number of parcels: " + parcels.size());
 
-            System.out.print("Is the parcel collected (true/false): ");
-            boolean isCollected = scanner.nextBoolean();
-            scanner.nextLine(); // Consume the newline
+// Save the updated parcels list back to the CSV file
+saveParcelsToCSV();
 
-            System.out.print("Enter Customer Name: ");
-            String customerName = scanner.nextLine();
-
-            System.out.print("Enter Length: ");
-            double length = scanner.nextDouble();
-
-            System.out.print("Enter Width: ");
-            double width = scanner.nextDouble();
-
-            System.out.print("Enter Height: ");
-            double height = scanner.nextDouble();
-
-            System.out.print("Enter Weight: ");
-            double weight = scanner.nextDouble();
-
-            System.out.print("Enter Days in Depot: ");
-            int daysInDepot = scanner.nextInt();
-
-            // Create a new Parcel object
-            Parcel newParcel = new Parcel(parcelID, isCollected, customerName, length, width, height, weight, daysInDepot);
-
-            // Add the new parcel to the list
-            parcels.add(newParcel);
-
-            // Debug: Print updated size of the list
-            System.out.println("Updated number of parcels: " + parcels.size());
-
-            // Save the updated parcels list back to the CSV file
-            saveParcelsToCSV();
-
-            System.out.println("New Parcel added successfully!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("An error occurred while adding the parcel.");
-        }
-    }
+System.out.println("New Parcel added successfully!");
+} catch (Exception e) {
+e.printStackTrace();
+System.out.println("An error occurred while adding the parcel.");
+}
+}
 
     
 
