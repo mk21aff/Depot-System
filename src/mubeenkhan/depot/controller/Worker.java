@@ -5,10 +5,14 @@ import mubeenkhan.depot.utils.CSVReader;
 import mubeenkhan.depot.model.Customer;
 import mubeenkhan.depot.model.Parcel;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+
+import javax.swing.JOptionPane;
 
 public class Worker {
 
@@ -41,32 +45,28 @@ public class Worker {
     }
 
     public void addNewParcel(String parcelID, boolean isCollected, String customerName, 
-            double length, double width, double height, 
-            double weight, int daysInDepot) {
-try {
-// Create a new Parcel object
-Parcel newParcel = new Parcel(parcelID, isCollected, customerName, length, 
-                        width, height, weight, daysInDepot);
+            double length, double width, double height, double weight, int daysInDepot) {
+// Create the CSV line with the new parcel data
+String parcelData = String.join(",", parcelID, String.valueOf(isCollected),customerName, 
+                        String.valueOf(length), String.valueOf(width), 
+                        String.valueOf(height), String.valueOf(weight), 
+                        String.valueOf(daysInDepot));
 
-// Add the new parcel to the list
-parcels.add(newParcel);
+// Open the CSV file in append mode
+try (BufferedWriter writer = new BufferedWriter(new FileWriter("parcels.csv", true))) {
+// Append the new parcel data
+writer.write(parcelData);
+writer.newLine(); // Adds a new line after the data
 
-// Debug: Print updated size of the list
-System.out.println("Updated number of parcels: " + parcels.size());
-
-// Save the updated parcels list back to the CSV file
-saveParcelsToCSV();
-
-System.out.println("New Parcel added successfully!");
-} catch (Exception e) {
-e.printStackTrace();
-System.out.println("An error occurred while adding the parcel.");
+} catch (IOException e) {
+// Handle exception
+System.out.println("Error writing to CSV file: " + e.getMessage());
 }
 }
 
-    
 
     // Method to save the parcels list to CSV file
+//  
     private void saveParcelsToCSV() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Parcels.csv"))) {
             for (Parcel parcel : parcels) {
@@ -87,6 +87,8 @@ System.out.println("An error occurred while adding the parcel.");
         }
     }
 
+
+    
     // Method to view all parcels in the list
     public void viewParcels() {
         if (parcels.isEmpty()) {
@@ -102,43 +104,48 @@ System.out.println("An error occurred while adding the parcel.");
         
     }
     
-    // New method to add customer to the queue (with name input)
-    public void addCustomerToQueue() {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Enter Customer Name: ");
-        String customerName = scanner.nextLine();
-
-        // Search for a parcel that matches the customer name
+ // New method to add customer to the queue (with name input)
+    public boolean addCustomerToQueue(String customerName) {
         Parcel matchingParcel = null;
         for (Parcel parcel : parcels) {
             if (parcel.getCustomerName().equalsIgnoreCase(customerName) && !parcel.isCollected()) {
                 matchingParcel = parcel;
-                break; // Exit the loop once a matching parcel is found
+                break;
             }
         }
 
-        // If no matching parcel is found
         if (matchingParcel == null) {
-            System.out.println("No uncollected parcel found for customer: " + customerName);
-            return;
+            return false; // No matching parcel found
         }
 
-        // If a matching parcel is found, get the Parcel ID
         String parcelID = matchingParcel.getParcelID();
+        
+        // Check if the parcelID is already in the queue
+        if (isParcelInQueue(parcelID)) {
+            // Display the message in the GUI
+            JOptionPane.showMessageDialog(null, "This parcel is already in the queue.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false; // Parcel already in queue, do not add again
+        }
 
-        // Add the customer to the queue with the corresponding Parcel ID
         queueManager.addCustomerToQueue(customerName, parcelID);
-        System.out.println("Customer " + customerName + " has been added to the queue with Parcel ID: " + parcelID);
+        saveCustomerToQueueCSV(customerName, parcelID); // Save customer to the queue CSV
+        return true;
+    }
 
-        // Change the parcel's isCollected status to true
-        matchingParcel.setCollected(true);
-
-        // Save the updated list of parcels to Parcels.csv
-        saveParcelsToCSV();
-
-        // Save the customer to Queue.csv
-        saveCustomerToQueueCSV(customerName, parcelID);
+    // Helper method to check if the parcelID is already in the Queue.csv
+    private boolean isParcelInQueue(String parcelID) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Queue.csv"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length > 2 && parts[2].equals(parcelID)) {
+                    return true; // Parcel ID found in the queue
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false; // Parcel ID not found in the queue
     }
 
     private void saveCustomerToQueueCSV(String customerName, String parcelID) {
@@ -156,5 +163,29 @@ System.out.println("An error occurred while adding the parcel.");
             System.out.println("Failed to save customer to Queue.csv.");
         }
     }
+    
+    public String getParcelsData() {
+        // Read and return data from Parcels.csv
+        return readCSV("Parcels.csv");
+    }
+
+    public String getQueueData() {
+        // Read and return data from Queue.csv
+        return readCSV("Queue.csv");
+    }
+
+    private String readCSV(String fileName) {
+        StringBuilder data = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                data.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            data.append("Error reading ").append(fileName);
+        }
+        return data.toString();
+    }
+
 
 }
