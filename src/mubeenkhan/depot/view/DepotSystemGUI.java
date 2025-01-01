@@ -1,14 +1,14 @@
 package mubeenkhan.depot.view;
 
 import javax.swing.*;
-
+import mubeenkhan.depot.controller.ServeCustomersController;
 import mubeenkhan.depot.controller.Worker;
-
+import mubeenkhan.depot.utils.Helper;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class DepotSystemGUI {
-    private JFrame frame;  // Main window
+    private JFrame frame;
     private JTextField parcelIDField;
     private JTextField customerNameField;
     private JTextField lengthField;
@@ -18,53 +18,76 @@ public class DepotSystemGUI {
     private JTextField daysInDepotField;
     private JCheckBox isCollectedCheckBox;
     private JButton addParcelButton;
-  //  private JButton viewParcelsButton;
     private JButton addCustomerButton;
     private JButton submitButton;
-    private JButton displayParcelsButton; // New button for displaying parcels
-    private JButton displayQueueButton;  // New button for displaying queue
-    private JTextArea displayArea;       // Area to display CSV content
+    private JButton displayParcelsButton;
+    private JButton displayQueueButton;
+    private JButton serveCustomerButton;
+    private JTextArea displayArea;
+
+    private JButton searchParcelButton;
+    private JTextField searchParcelField;
+    
+  
 
     public DepotSystemGUI() {
         frame = new JFrame("Depot System");
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Layout and buttons
         frame.setLayout(new BorderLayout());
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(3, 2, 10, 10));
+        buttonPanel.setLayout(new GridLayout(4, 2, 10 ,5));  // Changed to 5 rows for the additional search section
+       // buttonPanel.setPreferredSize(new Dimension(50, 300));
 
         addParcelButton = new JButton("Add New Parcel");
-      //  viewParcelsButton = new JButton("View All Parcels");
         addCustomerButton = new JButton("Add Customer to Queue");
-        displayParcelsButton = new JButton("Display Parcels"); // New button
-        displayQueueButton = new JButton("Display Queue");    // New button
-      //  submitButton = new JButton("Submit"); // Initialize the submit button here
+        displayParcelsButton = new JButton("Display Parcels");
+        displayQueueButton = new JButton("Display Queue");
+        serveCustomerButton = new JButton("Serve Customers");
 
-        // Add buttons to the panel
+        searchParcelButton = new JButton("Search Parcel by ID");
+        searchParcelField = new JTextField(5);
+
+        // Adding the regular buttons first
         buttonPanel.add(addParcelButton);
-       // buttonPanel.add(viewParcelsButton);
         buttonPanel.add(addCustomerButton);
         buttonPanel.add(displayParcelsButton);
         buttonPanel.add(displayQueueButton);
-      //  buttonPanel.add(submitButton);  // Add the button to the panel
+        buttonPanel.add(serveCustomerButton);
 
-        // Create a text area for displaying data
+        // Search Parcel section placed at the bottom
+        JPanel searchPanel = new JPanel(new FlowLayout());
+        searchPanel.add(new JLabel("Parcel ID to search:"));
+        searchPanel.add(searchParcelField);
+        searchPanel.add(searchParcelButton);
+
+        // Adding the search panel as the last item
+        buttonPanel.add(searchPanel);
+
         displayArea = new JTextArea();
-        displayArea.setEditable(false);  // Read-only
+        displayArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(displayArea);
 
-        // Add components to the frame
+        // Adding the button panel to the top
         frame.add(buttonPanel, BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(searchPanel, BorderLayout.SOUTH);  // Place search section at the bottom
+
+        serveCustomerButton.addActionListener(e -> openCustomerQueueGUI());
     }
- // Make sure the submit button is initialized
+
+    public void setSearchParcelListener(ActionListener listener) {
+        searchParcelButton.addActionListener(listener);
+    }
+
+    public String getSearchParcelID() {
+        return searchParcelField.getText();
+    }
+
     public JButton getSubmitButton() {
         return submitButton;
     }
 
-    // Show form for adding a new parcel
     public void showParcelForm() {
         JPanel panel = new JPanel(new GridLayout(9, 2, 5, 5));
         parcelIDField = new JTextField(15);
@@ -92,7 +115,7 @@ public class DepotSystemGUI {
         panel.add(new JLabel("Days in Depot:"));
         panel.add(daysInDepotField);
         panel.add(isCollectedCheckBox);
-        panel.add(submitButton);  // Button added here
+        panel.add(submitButton);
 
         JFrame parcelFormFrame = new JFrame("Add New Parcel");
         parcelFormFrame.setSize(400, 400);
@@ -100,10 +123,8 @@ public class DepotSystemGUI {
         parcelFormFrame.add(panel);
         parcelFormFrame.setVisible(true);
 
-        // Action listener for Submit Button
         submitButton.addActionListener(e -> {
             try {
-                // Retrieve input values
                 String parcelID = getParcelID();
                 String customerName = getCustomerName();
                 double length = getLength();
@@ -113,14 +134,17 @@ public class DepotSystemGUI {
                 int daysInDepot = getDaysInDepot();
                 boolean isCollected = isCollected();
 
-                // Add the parcel using Worker class
-                Worker worker = new Worker(); // Assuming Worker is initialized correctly elsewhere
+                if (!Helper.isValidParcelID(parcelID)) {
+                    JOptionPane.showMessageDialog(parcelFormFrame, 
+                        "Invalid Parcel ID. Must start with C or X and be followed by two digits.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                Worker worker = new Worker();
                 worker.addNewParcel(parcelID, isCollected, customerName, length, width, height, weight, daysInDepot);
 
-                // Show success message
                 JOptionPane.showMessageDialog(parcelFormFrame, "Parcel added successfully!");
-
-                // Reset fields
                 resetFormFields();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(parcelFormFrame, 
@@ -141,20 +165,13 @@ public class DepotSystemGUI {
         isCollectedCheckBox.setSelected(false);
     }
 
-
-    // Display data in the text area
     public void displayData(String data) {
         displayArea.setText(data);
     }
 
-    // Setters for listeners
     public void setAddParcelListener(ActionListener listener) {
         addParcelButton.addActionListener(listener);
     }
-
-  //  public void setViewParcelsListener(ActionListener listener) {
-   //    viewParcelsButton.addActionListener(listener);
-   // }
 
     public void setAddCustomerListener(ActionListener listener) {
         addCustomerButton.addActionListener(listener);
@@ -168,14 +185,10 @@ public class DepotSystemGUI {
         displayQueueButton.addActionListener(listener);
     }
 
-  //  public void setSubmitListener(ActionListener listener) {
-    //    submitButton.addActionListener(listener);
-  //  }
-
     public void show() {
         frame.setVisible(true);
     }
-    // Getters for form fields
+
     public String getParcelID() {
         return parcelIDField.getText();
     }
@@ -207,61 +220,46 @@ public class DepotSystemGUI {
     public boolean isCollected() {
         return isCollectedCheckBox.isSelected();
     }
-	
+
     public void showCustomerForm(ActionListener submitListener) {
-        // Create panel with grid layout
         JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
-
-        // Create text field for customer name
         JTextField customerNameField = new JTextField(15);
-
-        // Create Submit button
         JButton submitButton = new JButton("Submit");
 
-        // Add components to the panel
         panel.add(new JLabel("Customer Name:"));
         panel.add(customerNameField);
-        panel.add(new JLabel()); // Empty label for alignment
+        panel.add(new JLabel());
         panel.add(submitButton);
 
-        // Create JFrame for the customer form
         JFrame customerFormFrame = new JFrame("Add Customer to Queue");
         customerFormFrame.setSize(300, 150);
         customerFormFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         customerFormFrame.add(panel);
         customerFormFrame.setVisible(true);
 
-        // Make the submit button the default button
-        customerFormFrame.getRootPane().setDefaultButton(submitButton);
-
-        // Attach action listener to the submit button
         submitButton.addActionListener(e -> {
             String customerName = customerNameField.getText().trim();
-
-            // Validate the input (make sure customer name isn't empty)
             if (!customerName.isEmpty()) {
-                submitListener.actionPerformed(e); // Notify the controller
-
-                // Show success message
+                submitListener.actionPerformed(e);
                 JOptionPane.showMessageDialog(customerFormFrame,
                         "Customer " + customerName + " has been added to the queue.",
                         "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                // Reset the customer name field after submission
                 customerNameField.setText("");
             } else {
-                // Show error message if customer name is empty
                 JOptionPane.showMessageDialog(customerFormFrame,
                         "Error: Customer name cannot be empty.",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
-        // Make sure Enter key triggers the submit button action
-        customerFormFrame.getRootPane().setDefaultButton(submitButton);
     }
 
-
+    private void openCustomerQueueGUI() {
+        SwingUtilities.invokeLater(() -> {
+            SimpleCustomerQueueGUI gui = new SimpleCustomerQueueGUI();
+            new ServeCustomersController(gui); // Instantiate the controller with the GUI
+            gui.setVisible(true); // Display the GUI
+        });
+    }
 
     public JFrame getFrame() {
         return frame;

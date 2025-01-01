@@ -20,6 +20,12 @@ public class DepotController {
         gui.setAddParcelListener(e -> gui.showParcelForm()); // Show form when clicked
        // gui.setViewParcelsListener(e -> worker.viewParcels());
         gui.setDisplayParcelsListener(e -> worker.viewParcels());
+        
+       // gui.setDisplayQueueListener(e -> displayCSVContent("Queue.csv"));
+        
+        gui.setSearchParcelListener(e -> searchParcel());
+        gui.setDisplayParcelsListener(e -> displayCSVContent("Parcels.csv"));
+        gui.setDisplayQueueListener(e -> displayCSVContent("Queue.csv"));
 
         // Updated Add Customer Listener
         gui.setAddCustomerListener(e -> {
@@ -69,37 +75,7 @@ public class DepotController {
             });
         });
 
-
-        // Add listener for the submit button
-//        gui.setSubmitListener(e -> {
-//            try {
-//                // Retrieve input values and handle the submission logic
-//                String parcelID = gui.getParcelID();
-//                String customerName = gui.getCustomerName();
-//                double length = gui.getLength();
-//                double width = gui.getWidth();
-//                double height = gui.getHeight();
-//                double weight = gui.getWeight();
-//                int daysInDepot = gui.getDaysInDepot();
-//                boolean isCollected = gui.isCollected();
-//
-//                // Simulate adding the parcel (Replace with actual method call to Worker)
-//                boolean isAdded = true; // Assume success for demonstration
-//
-//                if (isAdded) {
-//                    JOptionPane.showMessageDialog(gui.getFrame(), 
-//                        "Parcel added successfully!", 
-//                        "Success", JOptionPane.INFORMATION_MESSAGE);
-//                }
-//            } catch (NumberFormatException ex) {
-//                JOptionPane.showMessageDialog(gui.getFrame(), 
-//                    "Error: Invalid input. Please check your values.\n" + ex.getMessage(), 
-//                    "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        });
-
-        gui.setDisplayParcelsListener(e -> displayCSVContent("Parcels.csv"));
-        gui.setDisplayQueueListener(e -> displayCSVContent("Queue.csv"));
+        
     }
 
     // Reads and displays CSV file content in the text area
@@ -119,4 +95,13 @@ public class DepotController {
     public void start() {
         gui.show(); // Start the main GUI (with buttons)
     }
-}
+    
+    public void searchParcel() {
+        String parcelID = gui.getSearchParcelID(); // Get the Parcel ID from the GUI
+        if (parcelID != null && !parcelID.isEmpty()) {
+            String result = worker.searchParcelByID(parcelID); // Call the worker method to search the parcel
+            gui.displayData(result); // Display search result in the GUI
+        } else {
+            JOptionPane.showMessageDialog(gui.getFrame(), "Please enter a Parcel ID to search.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }}

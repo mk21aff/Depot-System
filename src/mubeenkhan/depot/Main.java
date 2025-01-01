@@ -1,8 +1,15 @@
 package mubeenkhan.depot;
 
 import mubeenkhan.depot.controller.Worker;
+
+//import javax.swing.SwingUtilities;
+//import javax.swing.*;
+
 import mubeenkhan.depot.controller.DepotController;
+//import mubeenkhan.depot.controller.ServeCustomersController;
+
 import mubeenkhan.depot.view.DepotSystemGUI;
+//import mubeenkhan.depot.view.SimpleCustomerQueueGUI;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,3 +29,14 @@ public class Main {
         controller.start(); // This will show the GUI
     }
 }
+
+
+//public class Main {
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            SimpleCustomerQueueGUI gui = new SimpleCustomerQueueGUI();
+//            new ServeCustomersController(gui); // Instantiate the controller with the GUI
+//            gui.setVisible(true); // Display the GUI
+//        });
+//    }
+//}
