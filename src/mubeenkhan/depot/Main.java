@@ -27,6 +27,12 @@ public class Main {
 
         // Start the application
         controller.start(); // This will show the GUI
+        
+        // Add "Sort Parcel by Name" button functionality
+        gui.setSortParcelByNameListener(e -> controller.sortParcelsByName());
+
+        // Start the application
+        controller.start(); // This will show the GUI
     }
 }
 

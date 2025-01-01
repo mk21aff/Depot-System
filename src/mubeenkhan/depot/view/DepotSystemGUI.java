@@ -1,11 +1,22 @@
 package mubeenkhan.depot.view;
 
 import javax.swing.*;
+
+import mubeenkhan.depot.controller.DepotController;
 import mubeenkhan.depot.controller.ServeCustomersController;
 import mubeenkhan.depot.controller.Worker;
+import mubeenkhan.depot.model.Parcel;
+import mubeenkhan.depot.utils.CSVReader;
 import mubeenkhan.depot.utils.Helper;
 import java.awt.*;
 import java.awt.event.ActionListener;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class DepotSystemGUI {
     private JFrame frame;
@@ -28,7 +39,7 @@ public class DepotSystemGUI {
     private JButton searchParcelButton;
     private JTextField searchParcelField;
     
-  
+    private JButton sortParcelByNameButton;
 
     public DepotSystemGUI() {
         frame = new JFrame("Depot System");
@@ -48,12 +59,16 @@ public class DepotSystemGUI {
         searchParcelButton = new JButton("Search Parcel by ID");
         searchParcelField = new JTextField(5);
 
+        sortParcelByNameButton = new JButton("Sort Parcel by Name");
+        
         // Adding the regular buttons first
         buttonPanel.add(addParcelButton);
         buttonPanel.add(addCustomerButton);
         buttonPanel.add(displayParcelsButton);
         buttonPanel.add(displayQueueButton);
         buttonPanel.add(serveCustomerButton);
+        
+        buttonPanel.add(sortParcelByNameButton);
 
         // Search Parcel section placed at the bottom
         JPanel searchPanel = new JPanel(new FlowLayout());
@@ -146,6 +161,18 @@ public class DepotSystemGUI {
 
                 JOptionPane.showMessageDialog(parcelFormFrame, "Parcel added successfully!");
                 resetFormFields();
+                
+                // Refresh data in memory
+                worker.initializeData(); // Reload customer queue and parcel data
+             // Notify the controller to handle the addition and refresh
+              //  controller.addNewParcelAndRefresh(parcelID, isCollected, customerName, length, width, height, weight, daysInDepot);
+
+             //   gui.updateView(worker);  // Update GUI to reflect changes
+
+                
+//                // Trigger GUI refresh
+//                DepotController controller = new DepotController(worker, this);
+//                controller.refreshParcels(); // Refresh the displayed parcels
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(parcelFormFrame, 
                     "Error: Invalid input. Please check your values.\n" + ex.getMessage(), 
@@ -264,4 +291,13 @@ public class DepotSystemGUI {
     public JFrame getFrame() {
         return frame;
     }
+    
+    public void setSortParcelByNameListener(ActionListener listener) {
+        sortParcelByNameButton.addActionListener(listener);
+    }
+    
+   
+
+   
 }
+

@@ -11,3 +11,7 @@ X00,TRUE,helo,1,1,1,1,1
 X99,TRUE,koko,1,1,1,1,1
 X12,TRUE,mkmkmkmkm,3,333,3,3,3
 C13,true,mm,2,2,1,2,5
+C14,true,momomo,2.0,4.0,3.0,1.5,5
+C15,true,customer,9.0,9.0,9.0,9.0,9
+C16,true,alu,2.0,2.0,2.0,2.0,22
+C17,true,bingo,2.0,2.0,22.0,2.0,2

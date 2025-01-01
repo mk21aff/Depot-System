@@ -14,8 +14,8 @@ import java.util.List;
 
 public class Worker {
 
-    private List<Parcel> parcels; // List to store all parcels
-    private QueueManager queueManager = new QueueManager(); // Manages customer queue
+    private static List<Parcel> parcels; // List to store all parcels
+    private static QueueManager queueManager = new QueueManager(); // Manages customer queue
 
     // Constructor initializes the parcels list
     public Worker() {
@@ -26,7 +26,7 @@ public class Worker {
      * Initializes parcel and customer data by reading from CSV files.
      * Adds parcels to the QueueManager's parcelDepot and customers to the queue.
      */
-    public void initializeData() {
+    public static void initializeData() {
         if (parcels.isEmpty()) {
             // Read parcels and customers from CSV files
             parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
@@ -147,6 +147,10 @@ System.out.println("Error writing to CSV file: " + e.getMessage());
 }
 
 System.out.println("Parcel added successfully: " + parcelID);
+
+//Reload data from CSV
+Worker.initializeData();
+
 }
 
 

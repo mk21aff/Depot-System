@@ -1,5 +1,7 @@
 package mubeenkhan.depot.controller;
 
+import mubeenkhan.depot.model.Parcel;
+import mubeenkhan.depot.utils.CSVReader;
 import mubeenkhan.depot.view.DepotSystemGUI;
 
 import javax.swing.*;
@@ -7,6 +9,8 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
 
 public class DepotController {
     private Worker worker;
@@ -17,7 +21,12 @@ public class DepotController {
         this.gui = gui;
 
         // Set listeners for each button
-        gui.setAddParcelListener(e -> gui.showParcelForm()); // Show form when clicked
+//        gui.setAddParcelListener(e -> gui.showParcelForm()); // Show form when clicked
+        
+        gui.setAddParcelListener(e -> {
+            gui.showParcelForm();
+            refreshParcels(); // Refresh the displayed parcels after adding
+        });
        // gui.setViewParcelsListener(e -> worker.viewParcels());
         gui.setDisplayParcelsListener(e -> worker.viewParcels());
         
@@ -104,4 +113,34 @@ public class DepotController {
         } else {
             JOptionPane.showMessageDialog(gui.getFrame(), "Please enter a Parcel ID to search.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }}
+    }
+    public void sortParcelsByName() {
+        // Read parcels using CSVReader
+        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
+
+        // Sort parcels by customer name
+        parcels.sort(Comparator.comparing(Parcel::getCustomerName));
+
+        // Prepare display data
+        StringBuilder sortedData = new StringBuilder("Sorted Parcels by Name:\n");
+        for (Parcel parcel : parcels) {
+            sortedData.append(parcel.toString()).append("\n");
+        }
+
+        if (parcels.isEmpty()) {
+            sortedData.append("No parcels found.");
+        }
+
+        // Display sorted parcels in GUI
+        gui.displayData(sortedData.toString());
+    }    
+    public void refreshParcels() {
+        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv"); // Reload parcels from the CSV
+        StringBuilder data = new StringBuilder("All Parcels:\n");
+        for (Parcel parcel : parcels) {
+            data.append(parcel.toString()).append("\n");
+        }
+        gui.displayData(data.toString()); // Update the GUI display
+    }
+
+}
