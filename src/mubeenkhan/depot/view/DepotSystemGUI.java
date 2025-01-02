@@ -40,6 +40,9 @@ public class DepotSystemGUI {
     private JTextField searchParcelField;
     
     private JButton sortParcelByNameButton;
+    
+    private JButton viewUncollectedParcelsButton;
+    private JButton viewCollectedParcelsButton;
 
     public DepotSystemGUI() {
         frame = new JFrame("Depot System");
@@ -60,6 +63,8 @@ public class DepotSystemGUI {
         searchParcelField = new JTextField(5);
 
         sortParcelByNameButton = new JButton("Sort Parcel by Name");
+        viewUncollectedParcelsButton = new JButton("View Uncollected Parcels");
+        viewCollectedParcelsButton = new JButton("View Collected Parcels");
         
         // Adding the regular buttons first
         buttonPanel.add(addParcelButton);
@@ -69,6 +74,8 @@ public class DepotSystemGUI {
         buttonPanel.add(serveCustomerButton);
         
         buttonPanel.add(sortParcelByNameButton);
+        buttonPanel.add(viewUncollectedParcelsButton);
+        buttonPanel.add(viewCollectedParcelsButton);
 
         // Search Parcel section placed at the bottom
         JPanel searchPanel = new JPanel(new FlowLayout());
@@ -295,8 +302,13 @@ public class DepotSystemGUI {
     public void setSortParcelByNameListener(ActionListener listener) {
         sortParcelByNameButton.addActionListener(listener);
     }
-    
-   
+    public void setViewUncollectedParcelsListener(ActionListener listener) {
+        viewUncollectedParcelsButton.addActionListener(listener);
+    }
+
+   public void setViewCollectedParcelsListener(ActionListener listener) {
+	   viewCollectedParcelsButton.addActionListener(listener);
+   }
 
    
 }

@@ -1,6 +1,6 @@
 ParcelID,IsCollected,CustomerName,Length,Width,Height,Weight,DaysInDepot
-b,true,b,2,22,22,2,2
-q,TRUE,q,2,22,22,2,2
+b,TRUE,b,2,22,22,2,2
+q,FALSE,q,2,22,22,2,2
 C12,TRUE,aaaa,11,11,11,11,11
 C22,TRUE,k,1,1,1,1,1
 C12,TRUE,bsbs,1,1,1,1,1
@@ -10,8 +10,8 @@ C45,TRUE,mk,5,5,5,5,5
 X00,TRUE,helo,1,1,1,1,1
 X99,TRUE,koko,1,1,1,1,1
 X12,TRUE,mkmkmkmkm,3,333,3,3,3
-C13,true,mm,2,2,1,2,5
-C14,true,momomo,2.0,4.0,3.0,1.5,5
-C15,true,customer,9.0,9.0,9.0,9.0,9
-C16,true,alu,2.0,2.0,2.0,2.0,22
-C17,true,bingo,2.0,2.0,22.0,2.0,2
+C13,TRUE,mm,2,2,1,2,5
+C14,TRUE,momomo,2,4,3,1.5,5
+C15,TRUE,customer,9,9,9,9,9
+C16,TRUE,alu,2,2,2,2,22
+C17,FALSE,bingo,2,2,22,2,2

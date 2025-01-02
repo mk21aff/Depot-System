@@ -221,5 +221,7 @@ Worker.initializeData();
         return "Parcel with ID " + parcelID + " not found.";
     }
 
-
+    public List<Parcel> getParcels() {
+        return parcels; // Assuming parcels is a list of all parcels
+    }
 }

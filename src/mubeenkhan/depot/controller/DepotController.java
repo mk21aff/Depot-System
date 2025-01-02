@@ -22,7 +22,9 @@ public class DepotController {
 
         // Set listeners for each button
 //        gui.setAddParcelListener(e -> gui.showParcelForm()); // Show form when clicked
-        
+        gui.setViewUncollectedParcelsListener(e -> displayUncollectedParcels());
+        gui.setViewCollectedParcelsListener(e -> displayCollectedParcels());
+
         gui.setAddParcelListener(e -> {
             gui.showParcelForm();
             refreshParcels(); // Refresh the displayed parcels after adding
@@ -114,6 +116,27 @@ public class DepotController {
             JOptionPane.showMessageDialog(gui.getFrame(), "Please enter a Parcel ID to search.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+//    public void sortParcelsByName() {
+//        // Read parcels using CSVReader
+//        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
+//
+//        // Sort parcels by customer name
+//        parcels.sort(Comparator.comparing(Parcel::getCustomerName));
+//
+//        // Prepare display data
+//        StringBuilder sortedData = new StringBuilder("Sorted Parcels by Name:\n");
+//        for (Parcel parcel : parcels) {
+//            sortedData.append(parcel.toString()).append("\n");
+//        }
+//
+//        if (parcels.isEmpty()) {
+//            sortedData.append("No parcels found.");
+//        }
+//
+//        // Display sorted parcels in GUI
+//        gui.displayData(sortedData.toString());
+//    }    
+    
     public void sortParcelsByName() {
         // Read parcels using CSVReader
         List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
@@ -122,9 +145,17 @@ public class DepotController {
         parcels.sort(Comparator.comparing(Parcel::getCustomerName));
 
         // Prepare display data
-        StringBuilder sortedData = new StringBuilder("Sorted Parcels by Name:\n");
+        StringBuilder sortedData = new StringBuilder("Sorted Parcels by Name:\n\n");
         for (Parcel parcel : parcels) {
-            sortedData.append(parcel.toString()).append("\n");
+            sortedData.append("Parcel ID: ").append(parcel.getParcelID()).append("\n")
+                       .append("Customer Name: ").append(parcel.getCustomerName()).append("\n")
+                       .append("Length: ").append(parcel.getLength()).append("\n")
+                       .append("Width: ").append(parcel.getWidth()).append("\n")
+                       .append("Height: ").append(parcel.getHeight()).append("\n")
+                       .append("Weight: ").append(parcel.getWeight()).append("\n")
+                       .append("Days in Depot: ").append(parcel.getDaysInDepot()).append("\n")
+                       .append("Collected: ").append(parcel.isCollected() ? "Yes" : "No").append("\n")
+                       .append("-----\n");
         }
 
         if (parcels.isEmpty()) {
@@ -133,7 +164,7 @@ public class DepotController {
 
         // Display sorted parcels in GUI
         gui.displayData(sortedData.toString());
-    }    
+    }
     public void refreshParcels() {
         List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv"); // Reload parcels from the CSV
         StringBuilder data = new StringBuilder("All Parcels:\n");
@@ -141,6 +172,113 @@ public class DepotController {
             data.append(parcel.toString()).append("\n");
         }
         gui.displayData(data.toString()); // Update the GUI display
+    }
+//    public void displayUncollectedParcels() {
+//        // Read all parcels from the CSV file
+//        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
+//
+//        // Filter uncollected parcels
+//        List<Parcel> uncollectedParcels = parcels.stream()
+//                .filter(parcel -> !parcel.isCollected()) // Check if `isCollected` is false
+//                .toList();
+//
+//        // Prepare data for display
+//        StringBuilder displayData = new StringBuilder("Uncollected Parcels:\n");
+//        for (Parcel parcel : uncollectedParcels) {
+//            displayData.append(parcel.toString()).append("\n");
+//        }
+//
+//        if (uncollectedParcels.isEmpty()) {
+//            displayData.append("No uncollected parcels found.");
+//        }
+//
+//        // Display the filtered parcels in the GUI
+//        gui.displayData(displayData.toString());
+//    }
+    
+    public void displayUncollectedParcels() {
+        // Read all parcels from the CSV file
+        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
+
+        // Filter uncollected parcels
+        List<Parcel> uncollectedParcels = parcels.stream()
+                .filter(parcel -> !parcel.isCollected())
+                .toList();
+
+        // Prepare data for display
+        StringBuilder displayData = new StringBuilder("Uncollected Parcels:\n\n");
+        for (Parcel parcel : uncollectedParcels) {
+            displayData.append("Parcel ID: ").append(parcel.getParcelID()).append("\n")
+                       .append("Customer Name: ").append(parcel.getCustomerName()).append("\n")
+                       .append("Length: ").append(parcel.getLength()).append("\n")
+                       .append("Width: ").append(parcel.getWidth()).append("\n")
+                       .append("Height: ").append(parcel.getHeight()).append("\n")
+                       .append("Weight: ").append(parcel.getWeight()).append("\n")
+                       .append("Days in Depot: ").append(parcel.getDaysInDepot()).append("\n")
+                       .append("Collected: ").append(parcel.isCollected() ? "Yes" : "No").append("\n")
+                       .append("-----\n");
+        }
+
+        if (uncollectedParcels.isEmpty()) {
+            displayData.append("No uncollected parcels found.");
+        }
+
+        // Display the result in the GUI
+        gui.displayData(displayData.toString());
+    }
+
+
+//    public void displayCollectedParcels() {
+//        // Read all parcels from the CSV file
+//        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
+//
+//        // Filter collected parcels
+//        List<Parcel> collectedParcels = parcels.stream()
+//                .filter(Parcel::isCollected) // Check if `isCollected` is true
+//                .toList();
+//
+//        // Prepare data for display
+//        StringBuilder displayData = new StringBuilder("Collected Parcels:\n");
+//        for (Parcel parcel : collectedParcels) {
+//            displayData.append(parcel.toString()).append("\n");
+//        }
+//
+//        if (collectedParcels.isEmpty()) {
+//            displayData.append("No collected parcels found.");
+//        }
+//
+//        // Display the filtered parcels in the GUI
+//        gui.displayData(displayData.toString());
+//    }
+    public void displayCollectedParcels() {
+        // Read all parcels from the CSV file
+        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
+
+        // Filter collected parcels
+        List<Parcel> collectedParcels = parcels.stream()
+                .filter(Parcel::isCollected) // Check if `isCollected` is true
+                .toList();
+
+        // Prepare data for display
+        StringBuilder displayData = new StringBuilder("Collected Parcels:\n\n");
+        for (Parcel parcel : collectedParcels) {
+            displayData.append("Parcel ID: ").append(parcel.getParcelID()).append("\n")
+                       .append("Customer Name: ").append(parcel.getCustomerName()).append("\n")
+                       .append("Length: ").append(parcel.getLength()).append("\n")
+                       .append("Width: ").append(parcel.getWidth()).append("\n")
+                       .append("Height: ").append(parcel.getHeight()).append("\n")
+                       .append("Weight: ").append(parcel.getWeight()).append("\n")
+                       .append("Days in Depot: ").append(parcel.getDaysInDepot()).append("\n")
+                       .append("Collected: ").append(parcel.isCollected() ? "Yes" : "No").append("\n")
+                       .append("-----\n");
+        }
+
+        if (collectedParcels.isEmpty()) {
+            displayData.append("No collected parcels found.");
+        }
+
+        // Display the filtered parcels in the GUI
+        gui.displayData(displayData.toString());
     }
 
 }
