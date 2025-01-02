@@ -30,6 +30,7 @@ public class Main {
         
         // Add "Sort Parcel by Name" button functionality
         gui.setSortParcelByNameListener(e -> controller.sortParcelsByName());
+        
 
         // Start the application
         controller.start(); // This will show the GUI
@@ -37,12 +38,3 @@ public class Main {
 }
 
 
-//public class Main {
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            SimpleCustomerQueueGUI gui = new SimpleCustomerQueueGUI();
-//            new ServeCustomersController(gui); // Instantiate the controller with the GUI
-//            gui.setVisible(true); // Display the GUI
-//        });
-//    }
-//}

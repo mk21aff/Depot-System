@@ -1,10 +1,12 @@
-package mubeenkhan.depot.view;
+ package mubeenkhan.depot.view;
 
 import javax.swing.*;
 
 import mubeenkhan.depot.controller.DepotController;
 import mubeenkhan.depot.controller.ServeCustomersController;
 import mubeenkhan.depot.controller.Worker;
+import mubeenkhan.depot.controller.LogsController;  // Ensure correct class name and package
+
 import mubeenkhan.depot.model.Parcel;
 import mubeenkhan.depot.utils.CSVReader;
 import mubeenkhan.depot.utils.Helper;
@@ -43,8 +45,14 @@ public class DepotSystemGUI {
     
     private JButton viewUncollectedParcelsButton;
     private JButton viewCollectedParcelsButton;
+    private JButton viewLogsButton;
+    
+    private LogsController logsController;
+    public JButton reportButton;
+    private ReportWindow reportWindow; 
 
     public DepotSystemGUI() {
+    	logsController = new LogsController();
         frame = new JFrame("Depot System");
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,6 +73,9 @@ public class DepotSystemGUI {
         sortParcelByNameButton = new JButton("Sort Parcel by Name");
         viewUncollectedParcelsButton = new JButton("View Uncollected Parcels");
         viewCollectedParcelsButton = new JButton("View Collected Parcels");
+        viewLogsButton = new JButton("View Logs");
+        reportButton = new JButton("Report");
+        reportWindow = new ReportWindow();
         
         // Adding the regular buttons first
         buttonPanel.add(addParcelButton);
@@ -76,12 +87,14 @@ public class DepotSystemGUI {
         buttonPanel.add(sortParcelByNameButton);
         buttonPanel.add(viewUncollectedParcelsButton);
         buttonPanel.add(viewCollectedParcelsButton);
+        buttonPanel.add(viewLogsButton);
 
         // Search Parcel section placed at the bottom
         JPanel searchPanel = new JPanel(new FlowLayout());
         searchPanel.add(new JLabel("Parcel ID to search:"));
         searchPanel.add(searchParcelField);
         searchPanel.add(searchParcelButton);
+        searchPanel.add(reportButton);
 
         // Adding the search panel as the last item
         buttonPanel.add(searchPanel);
@@ -96,6 +109,8 @@ public class DepotSystemGUI {
         frame.add(searchPanel, BorderLayout.SOUTH);  // Place search section at the bottom
 
         serveCustomerButton.addActionListener(e -> openCustomerQueueGUI());
+        viewLogsButton.addActionListener(e -> displayLogs());
+        
     }
 
     public void setSearchParcelListener(ActionListener listener) {
@@ -310,6 +325,55 @@ public class DepotSystemGUI {
 	   viewCollectedParcelsButton.addActionListener(listener);
    }
 
-   
-}
 
+   public void displayLogs() {
+	    // Create the text area to display logs
+	    JTextArea logTextArea = new JTextArea();
+	    logTextArea.setEditable(false);  // Make it read-only
+
+	    // Create a JScrollPane for the text area to enable scrolling
+	    JScrollPane scrollPane = new JScrollPane(logTextArea);
+	    scrollPane.setPreferredSize(new Dimension(500, 300));  // Set preferred size for the scroll pane
+
+	    // Create a panel to hold the refresh button
+	    JPanel logPanel = new JPanel();
+	    JButton refreshButton = new JButton("Refresh Logs");
+
+	    // Set an action listener for the refresh button
+	    refreshButton.addActionListener(e -> {
+	        // Call the refreshLogs() method to reload the logs from the file
+	        logsController.refreshLogs();  // Refresh the logs from the file
+
+	        // Clear the existing content in the JTextArea
+	        logTextArea.setText("");  
+
+	        // Reload the logs from the LogsController and update the JTextArea
+	        List<String> updatedLogs = logsController.getLogs();  // Get the updated logs
+	        for (String log : updatedLogs) {
+	            logTextArea.append(log + "\n");  // Append the logs to the JTextArea
+	        }
+	    });
+
+	    // Initially load logs into JTextArea when the window is opened
+	    List<String> initialLogs = logsController.getLogs();  // Fetch current logs
+	    for (String log : initialLogs) {
+	        logTextArea.append(log + "\n");  // Append the logs to the JTextArea
+	    }
+
+	    // Layout the panel with the refresh button and the scroll pane
+	    logPanel.setLayout(new BorderLayout());
+	    logPanel.add(refreshButton, BorderLayout.NORTH);  // Place the button at the top
+	    logPanel.add(scrollPane, BorderLayout.CENTER);    // Place the scroll pane in the center
+
+	    // Show the logs window with the refresh button and scroll pane
+	    JOptionPane.showMessageDialog(frame, logPanel, "Logs", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+
+   // Method to log an action (this could be called when performing an action in the app)
+   public void logAction(String action) {
+       logsController.logAction(action);
+       displayLogs(); 
+   }
+
+}

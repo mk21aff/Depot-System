@@ -1,0 +1,187 @@
+Initializing data: Reading parcels and customers from CSV.
+Data initialization successful.
+Viewing all parcels.
+Initializing data: Reading parcels and customers from CSV.
+Data initialization successful.
+Viewing all parcels.
+Initializing data: Reading parcels and customers from CSV.
+Data initialization successful.
+Adding new parcel with ID: C18
+Parcel added to CSV: C18
+Initializing data: Reading parcels and customers from CSV.
+Data initialization successful.
+Viewing all parcels.
+Adding customer to queue: bingo
+Parcel C17 is already in the queue.
+Adding customer to queue: ccccc
+Customer ccccc added to the queue with parcel ID: C18
+Initializing data: Reading parcels and customers from CSV.
+Data initialization successful.
+2025-01-02 13:28:41 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 13:28:41 - Data initialization successful.
+2025-01-02 13:29:04 - Adding new parcel with ID: C19
+2025-01-02 13:29:04 - Parcel added to CSV: C19
+2025-01-02 13:29:04 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 13:29:04 - Data initialization successful.
+2025-01-02 13:29:30 - Viewing all parcels.
+2025-01-02 13:29:40 - Adding customer to queue: 12
+2025-01-02 13:29:40 - Customer 12 added to the queue with parcel ID: C19
+2025-01-02 13:43:07 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 13:43:07 - Data initialization successful.
+2025-01-02 13:43:32 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 13:43:32 - Data initialization successful.
+2025-01-02 13:44:06 - Adding new parcel with ID: C20
+2025-01-02 13:44:06 - Parcel added to CSV: C20
+2025-01-02 13:44:06 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 13:44:06 - Data initialization successful.
+2025-01-02 13:44:18 - Viewing all parcels.
+2025-01-02 13:44:34 - Adding customer to queue: jc
+2025-01-02 13:44:34 - Customer jc added to the queue with parcel ID: C20
+2025-01-02 13:47:39 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 13:47:39 - Data initialization successful.
+2025-01-02 13:48:23 - Adding new parcel with ID: C21
+2025-01-02 13:48:23 - Parcel added to CSV: C21
+2025-01-02 13:48:23 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 13:48:23 - Data initialization successful.
+2025-01-02 13:48:27 - Viewing all parcels.
+2025-01-02 13:48:35 - Adding customer to queue: lm
+2025-01-02 13:48:35 - Customer lm added to the queue with parcel ID: C21
+2025-01-02 14:11:36 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:11:46 - Data initialization successful.
+2025-01-02 14:11:54 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:11:57 - Data initialization successful.
+2025-01-02 14:12:34 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:12:37 - Data initialization successful.
+2025-01-02 14:18:17 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:39:11 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:39:11 - Data initialization successful.
+2025-01-02 14:50:03 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:50:03 - Data initialization successful.
+2025-01-02 14:51:02 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:51:02 - Data initialization successful.
+2025-01-02 14:51:45 - Adding new parcel with ID: C22
+2025-01-02 14:51:45 - Parcel added to CSV: C22
+2025-01-02 14:51:45 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:51:45 - Data initialization successful.
+2025-01-02 14:52:04 - Adding customer to queue: akaas
+2025-01-02 14:52:04 - Parcel C22 is already in the queue.
+2025-01-02 14:52:38 - Viewing all parcels.
+2025-01-02 14:52:56 - Adding customer to queue: akaas
+2025-01-02 14:52:56 - Parcel C22 is already in the queue.
+2025-01-02 14:53:41 - Viewing all parcels.
+2025-01-02 14:54:17 - Adding new parcel with ID: C23
+2025-01-02 14:54:17 - Parcel added to CSV: C23
+2025-01-02 14:54:17 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:54:17 - Data initialization successful.
+2025-01-02 14:54:34 - Adding customer to queue: lemon
+2025-01-02 14:54:34 - Customer lemon added to the queue with parcel ID: C23
+2025-01-02 14:55:09 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:55:09 - Data initialization successful.
+2025-01-02 14:56:30 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:56:30 - Data initialization successful.
+2025-01-02 14:57:04 - Adding new parcel with ID: C24
+2025-01-02 14:57:04 - Parcel added to CSV: C24
+2025-01-02 14:57:04 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 14:57:04 - Data initialization successful.
+2025-01-02 14:57:14 - Viewing all parcels.
+2025-01-02 14:57:24 - Adding customer to queue: bolton
+2025-01-02 14:57:24 - Customer bolton added to the queue with parcel ID: C24
+2025-01-02 15:05:59 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 15:05:59 - Data initialization successful.
+2025-01-02 15:06:31 - Adding new parcel with ID: C25
+2025-01-02 15:06:31 - Parcel added to CSV: C25
+2025-01-02 15:06:31 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 15:06:31 - Data initialization successful.
+2025-01-02 15:06:59 - Adding customer to queue: bayga
+2025-01-02 15:06:59 - Customer bayga added to the queue with parcel ID: C25
+2025-01-02 15:57:37 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 15:57:37 - Data initialization successful.
+2025-01-02 16:00:26 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 16:00:26 - Data initialization successful.
+2025-01-02 16:00:29 - Displayed uncollected parcels
+2025-01-02 16:00:31 - Displayed collected parcels
+2025-01-02 16:25:16 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 16:25:16 - Data initialization successful.
+2025-01-02 16:25:18 - Displayed CSV content from: Parcels.csv
+2025-01-02 16:25:18 - Viewing all parcels.
+2025-01-02 16:25:25 - Applied discount for parcelID=q: Original Fee = 56.20, Discounted Fee = 56.20
+2025-01-02 16:25:25 - Fetched parcel details for Parcel ID: q
+2025-01-02 16:25:25 - Served first customer: q with Parcel ID: q
+2025-01-02 16:25:26 - Applied discount for parcelID=q: Original Fee = 56.20, Discounted Fee = 56.20
+2025-01-02 16:25:26 - Fetched parcel details for Parcel ID: q
+2025-01-02 16:25:26 - Served next customer: q with Parcel ID: q
+2025-01-02 16:25:27 - Applied discount for parcelID=C17: Original Fee = 12.20, Discounted Fee = 12.20
+2025-01-02 16:25:27 - Fetched parcel details for Parcel ID: C17
+2025-01-02 16:25:27 - Served next customer: bingo with Parcel ID: C17
+2025-01-02 16:25:29 - Applied discount for parcelID=C18: Original Fee = 8.20, Discounted Fee = 8.20
+2025-01-02 16:25:29 - Fetched parcel details for Parcel ID: C18
+2025-01-02 16:25:29 - Served next customer: ccccc with Parcel ID: C18
+2025-01-02 16:25:30 - Applied discount for parcelID=C19: Original Fee = 14175.80, Discounted Fee = 14175.80
+2025-01-02 16:25:30 - Fetched parcel details for Parcel ID: C19
+2025-01-02 16:25:30 - Served next customer: 12 with Parcel ID: C19
+2025-01-02 16:25:33 - Applied discount for parcelID=C20: Original Fee = 8.20, Discounted Fee = 8.20
+2025-01-02 16:25:33 - Fetched parcel details for Parcel ID: C20
+2025-01-02 16:25:33 - Served next customer: jc with Parcel ID: C20
+2025-01-02 16:25:35 - Applied discount for parcelID=C21: Original Fee = 6.45, Discounted Fee = 6.45
+2025-01-02 16:25:35 - Fetched parcel details for Parcel ID: C21
+2025-01-02 16:25:35 - Served next customer: lm with Parcel ID: C21
+2025-01-02 16:25:37 - Applied discount for parcelID=C23: Original Fee = 52.20, Discounted Fee = 52.20
+2025-01-02 16:25:37 - Fetched parcel details for Parcel ID: C23
+2025-01-02 16:25:37 - Served next customer: lemon with Parcel ID: C23
+2025-01-02 16:25:39 - Applied discount for parcelID=C24: Original Fee = 6.45, Discounted Fee = 6.45
+2025-01-02 16:25:39 - Fetched parcel details for Parcel ID: C24
+2025-01-02 16:25:39 - Served next customer: bolton with Parcel ID: C24
+2025-01-02 16:25:40 - Applied discount for parcelID=C25: Original Fee = 8.20, Discounted Fee = 8.20
+2025-01-02 16:25:40 - Fetched parcel details for Parcel ID: C25
+2025-01-02 16:25:40 - Served next customer: bayga with Parcel ID: C25
+2025-01-02 16:25:42 - Attempted to serve next customer, but the queue is empty.
+2025-01-02 16:40:43 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 16:40:43 - Data initialization successful.
+2025-01-02 16:48:44 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 16:48:44 - Data initialization successful.
+2025-01-02 17:15:26 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 17:15:26 - Data initialization successful.
+2025-01-02 17:16:16 - Report generated successfully at 2025-01-02 17:15:30
+2025-01-02 17:27:15 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 17:27:15 - Data initialization successful.
+2025-01-02 17:27:20 - Report generated successfully at 2025-01-02 17:27:20
+2025-01-02 17:28:00 - Refreshed parcels display
+2025-01-02 17:28:13 - Refreshed parcels display
+2025-01-02 17:28:20 - Refreshed parcels display
+2025-01-02 17:28:28 - Displayed CSV content from: Queue.csv
+2025-01-02 17:28:43 - Displayed CSV content from: Parcels.csv
+2025-01-02 17:28:43 - Viewing all parcels.
+2025-01-02 17:29:04 - Displayed CSV content from: Queue.csv
+2025-01-02 17:29:43 - Searching for parcel with ID: C21
+2025-01-02 17:29:43 - Parcel found: C21
+2025-01-02 17:29:43 - Searched for parcel with ID: C21
+2025-01-02 17:30:00 - Searching for parcel with ID: C21
+2025-01-02 17:30:00 - Parcel found: C21
+2025-01-02 17:30:00 - Searched for parcel with ID: C21
+2025-01-02 17:38:07 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 17:38:07 - Data initialization successful.
+2025-01-02 17:38:19 - Displayed CSV content from: Parcels.csv
+2025-01-02 17:38:19 - Viewing all parcels.
+2025-01-02 17:38:28 - Adding customer to queue: bayga
+2025-01-02 17:38:28 - Parcel C25 is already in the queue.
+2025-01-02 17:38:37 - Fetched parcel details for Parcel ID: X12
+2025-01-02 17:38:37 - Served first customer: mkmkmkmkm with Parcel ID: X12
+2025-01-02 17:39:00 - Fetched parcel details for Parcel ID: X12
+2025-01-02 17:39:00 - Served next customer: mkmkmkmkm with Parcel ID: X12
+2025-01-02 17:39:02 - Fetched parcel details for Parcel ID: C25
+2025-01-02 17:39:02 - Served next customer: bayga with Parcel ID: C25
+2025-01-02 17:39:11 - Attempted to serve next customer, but the queue is empty.
+2025-01-02 17:39:18 - Report generated successfully at 2025-01-02 17:39:18
+2025-01-02 17:40:50 - Displayed CSV content from: Parcels.csv
+2025-01-02 17:40:50 - Viewing all parcels.
+2025-01-02 17:41:47 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 17:41:47 - Data initialization successful.
+2025-01-02 17:41:53 - Report generated successfully at 2025-01-02 17:41:53
+2025-01-02 17:41:58 - Displayed CSV content from: Parcels.csv
+2025-01-02 17:41:58 - Viewing all parcels.
+2025-01-02 17:53:19 - Initializing data: Reading parcels and customers from CSV.
+2025-01-02 17:53:19 - Data initialization successful.
+2025-01-02 17:53:48 - Displayed CSV content from: Queue.csv
+2025-01-02 17:53:52 - Displayed CSV content from: Parcels.csv
+2025-01-02 17:53:52 - Viewing all parcels.
+2025-01-02 17:54:29 - Sorted parcels by customer name

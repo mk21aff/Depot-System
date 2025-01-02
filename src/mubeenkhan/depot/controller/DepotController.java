@@ -2,25 +2,44 @@ package mubeenkhan.depot.controller;
 
 import mubeenkhan.depot.model.Parcel;
 import mubeenkhan.depot.utils.CSVReader;
+import mubeenkhan.depot.utils.Helper;
 import mubeenkhan.depot.view.DepotSystemGUI;
+import mubeenkhan.depot.view.ReportWindow;
+import mubeenkhan.depot.controller.ServeCustomersController;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DepotController {
     private Worker worker;
     private DepotSystemGUI gui;
+    private LogsController logsController;
+    private ReportWindow reportWindow;
 
     public DepotController(Worker worker, DepotSystemGUI gui) {
         this.worker = worker;
         this.gui = gui;
+        this.logsController = new LogsController();
+        
+        reportWindow = new ReportWindow();
+        reportWindow.setGenerateReportListener(e -> generateReport());
+        reportWindow.setPrintReportListener(e -> printReport());
+
 
         // Set listeners for each button
+        gui.reportButton.addActionListener(e -> reportWindow.setVisible(true));
+
 //        gui.setAddParcelListener(e -> gui.showParcelForm()); // Show form when clicked
         gui.setViewUncollectedParcelsListener(e -> displayUncollectedParcels());
         gui.setViewCollectedParcelsListener(e -> displayCollectedParcels());
@@ -98,8 +117,10 @@ public class DepotController {
                 data.append(line).append("\n");
             }
             gui.displayData(data.toString());
+            logsController.writeLog("Displayed CSV content from: " + fileName);
         } catch (IOException ex) {
             gui.displayData("Error: Unable to read " + fileName);
+            logsController.writeLog("Error reading CSV file: " + fileName);
         }
     }
 
@@ -112,30 +133,12 @@ public class DepotController {
         if (parcelID != null && !parcelID.isEmpty()) {
             String result = worker.searchParcelByID(parcelID); // Call the worker method to search the parcel
             gui.displayData(result); // Display search result in the GUI
+            logsController.writeLog("Searched for parcel with ID: " + parcelID);
         } else {
             JOptionPane.showMessageDialog(gui.getFrame(), "Please enter a Parcel ID to search.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-//    public void sortParcelsByName() {
-//        // Read parcels using CSVReader
-//        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
-//
-//        // Sort parcels by customer name
-//        parcels.sort(Comparator.comparing(Parcel::getCustomerName));
-//
-//        // Prepare display data
-//        StringBuilder sortedData = new StringBuilder("Sorted Parcels by Name:\n");
-//        for (Parcel parcel : parcels) {
-//            sortedData.append(parcel.toString()).append("\n");
-//        }
-//
-//        if (parcels.isEmpty()) {
-//            sortedData.append("No parcels found.");
-//        }
-//
-//        // Display sorted parcels in GUI
-//        gui.displayData(sortedData.toString());
-//    }    
+    
     
     public void sortParcelsByName() {
         // Read parcels using CSVReader
@@ -164,6 +167,7 @@ public class DepotController {
 
         // Display sorted parcels in GUI
         gui.displayData(sortedData.toString());
+        logsController.writeLog("Sorted parcels by customer name");
     }
     public void refreshParcels() {
         List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv"); // Reload parcels from the CSV
@@ -172,29 +176,9 @@ public class DepotController {
             data.append(parcel.toString()).append("\n");
         }
         gui.displayData(data.toString()); // Update the GUI display
+        logsController.writeLog("Refreshed parcels display");
     }
-//    public void displayUncollectedParcels() {
-//        // Read all parcels from the CSV file
-//        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
-//
-//        // Filter uncollected parcels
-//        List<Parcel> uncollectedParcels = parcels.stream()
-//                .filter(parcel -> !parcel.isCollected()) // Check if `isCollected` is false
-//                .toList();
-//
-//        // Prepare data for display
-//        StringBuilder displayData = new StringBuilder("Uncollected Parcels:\n");
-//        for (Parcel parcel : uncollectedParcels) {
-//            displayData.append(parcel.toString()).append("\n");
-//        }
-//
-//        if (uncollectedParcels.isEmpty()) {
-//            displayData.append("No uncollected parcels found.");
-//        }
-//
-//        // Display the filtered parcels in the GUI
-//        gui.displayData(displayData.toString());
-//    }
+
     
     public void displayUncollectedParcels() {
         // Read all parcels from the CSV file
@@ -225,38 +209,18 @@ public class DepotController {
 
         // Display the result in the GUI
         gui.displayData(displayData.toString());
+        logsController.writeLog("Displayed uncollected parcels");
     }
 
 
-//    public void displayCollectedParcels() {
-//        // Read all parcels from the CSV file
-//        List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
-//
-//        // Filter collected parcels
-//        List<Parcel> collectedParcels = parcels.stream()
-//                .filter(Parcel::isCollected) // Check if `isCollected` is true
-//                .toList();
-//
-//        // Prepare data for display
-//        StringBuilder displayData = new StringBuilder("Collected Parcels:\n");
-//        for (Parcel parcel : collectedParcels) {
-//            displayData.append(parcel.toString()).append("\n");
-//        }
-//
-//        if (collectedParcels.isEmpty()) {
-//            displayData.append("No collected parcels found.");
-//        }
-//
-//        // Display the filtered parcels in the GUI
-//        gui.displayData(displayData.toString());
-//    }
+
     public void displayCollectedParcels() {
         // Read all parcels from the CSV file
         List<Parcel> parcels = CSVReader.readParcelsFromCSV("Parcels.csv");
 
         // Filter collected parcels
         List<Parcel> collectedParcels = parcels.stream()
-                .filter(Parcel::isCollected) // Check if `isCollected` is true
+                .filter(Parcel::isCollected) // Check if isCollected is true
                 .toList();
 
         // Prepare data for display
@@ -279,6 +243,80 @@ public class DepotController {
 
         // Display the filtered parcels in the GUI
         gui.displayData(displayData.toString());
+        logsController.writeLog("Displayed collected parcels");
     }
+
+
+    
+    private void generateReport() {
+        File file = new File("Parcels.csv");
+        if (!file.exists()) {
+            JOptionPane.showMessageDialog(null, "Parcels.csv file not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        StringBuilder report = new StringBuilder();
+        double totalCollectedFees = 0.0;
+        double totalFees = 0.0;
+
+        // Add timestamp
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        report.append("Report Generated: ").append(now.format(formatter)).append("\n\n");
+
+        report.append("Collected Parcels:\n");
+        report.append("--------------------------------------------------\n");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            reader.readLine(); // Skip the header row
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 8 && "true".equalsIgnoreCase(parts[1])) { // Collected parcels
+                    String parcelID = parts[0];
+                    double length = Double.parseDouble(parts[3]);
+                    double width = Double.parseDouble(parts[4]);
+                    double height = Double.parseDouble(parts[5]);
+                    double weight = Double.parseDouble(parts[6]);
+                    int daysInDepot = Integer.parseInt(parts[7]);
+
+                    double volume = length * width * height;
+                    double fee = Helper.calculateCollectionFee(volume, weight, daysInDepot);
+                    totalFees += fee;
+
+                    double discountedFee = Helper.applyDiscount(parcelID, fee);
+                    totalCollectedFees += discountedFee;
+
+                    report.append(String.format("Parcel ID: %s | Collected Fee: $%.2f\n", parcelID, discountedFee));
+                }
+            }
+        } catch (IOException | NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error reading Parcels.csv: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        report.append("--------------------------------------------------\n");
+        report.append(String.format("Total Collected Fees: $%.2f\n", totalCollectedFees));
+        report.append(String.format("Total Original Fees: $%.2f\n", totalFees));
+
+        // Display report in the main GUI
+       // reportTextArea.setText(report.toString()); // Assuming `reportTextArea` exists in the main GUI
+        reportWindow.displayReport(report.toString());
+
+        // Log the report generation
+        logsController.writeLog("Report generated successfully at " + now.format(formatter));
+    }
+
+
+    private void printReport() {
+        String report = reportWindow.getReportText();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("ParcelReport.txt"))) {
+            writer.write(report);
+            JOptionPane.showMessageDialog(null, "Report saved as ParcelReport.txt", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error saving report: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
 }

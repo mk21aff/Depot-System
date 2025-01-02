@@ -1,0 +1,30 @@
+Report Generated: 2025-01-02 17:27:20
+
+Collected Parcels:
+--------------------------------------------------
+Parcel ID: b | Collected Fee: $56.20
+Parcel ID: q | Collected Fee: $56.20
+Parcel ID: C12 | Collected Fee: $86.95
+Parcel ID: C22 | Collected Fee: $6.45
+Parcel ID: C12 | Collected Fee: $6.45
+Parcel ID: X11 | Collected Fee: $5.81
+Parcel ID: X33 | Collected Fee: $5.81
+Parcel ID: C45 | Collected Fee: $18.25
+Parcel ID: X00 | Collected Fee: $5.81
+Parcel ID: X99 | Collected Fee: $5.81
+Parcel ID: X12 | Collected Fee: $143.14
+Parcel ID: C13 | Collected Fee: $11.00
+Parcel ID: C14 | Collected Fee: $11.80
+Parcel ID: C15 | Collected Fee: $54.05
+Parcel ID: C16 | Collected Fee: $28.20
+Parcel ID: C17 | Collected Fee: $12.20
+Parcel ID: C18 | Collected Fee: $8.20
+Parcel ID: C19 | Collected Fee: $14175.80
+Parcel ID: C20 | Collected Fee: $8.20
+Parcel ID: C21 | Collected Fee: $6.45
+Parcel ID: C23 | Collected Fee: $52.20
+Parcel ID: C24 | Collected Fee: $6.45
+Parcel ID: C25 | Collected Fee: $8.20
+--------------------------------------------------
+Total Collected Fees: $14779.62
+Total Original Fees: $14798.10

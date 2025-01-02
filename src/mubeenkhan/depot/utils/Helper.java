@@ -79,6 +79,38 @@ public class Helper {
         }
         return true; // Assume collected if parcel ID is not found
     }
+    
+    public static double calculateCollectionFee(double volume, double weight, int daysInDepot) {
+        final double BASE_FEE = 5.0;
+        final double VOLUME_FACTOR = 0.05; // $0.05 per cubic inch
+        final double WEIGHT_FACTOR = 0.20; // $0.20 per 0.5 kg
+        final double STORAGE_FACTOR = 1.0; // $1 per day
+
+        double volumeCost = VOLUME_FACTOR * volume;
+        double weightCost = WEIGHT_FACTOR * (weight / 0.5); // Assuming weight in kilograms
+        double storageCost = STORAGE_FACTOR * daysInDepot;
+
+        return BASE_FEE + volumeCost + weightCost + storageCost;
+    }
+
+    public static double applyDiscount(String parcelID, double originalFee) {
+        final double DISCOUNT_RATE = 0.10; // 10% discount
+
+        double discountedFee = originalFee; // Initialize discountedFee with originalFee
+
+        // Check if discount applies
+        if (parcelID.startsWith("X")) {
+            discountedFee = originalFee * (1 - DISCOUNT_RATE); // Apply discount if parcelID starts with 'X'
+        }
+
+        // Optional: Add a logging utility in Helper to log details
+        System.out.printf("Applied discount for parcelID=%s: Original Fee = %.2f, Discounted Fee = %.2f%n",
+                parcelID, originalFee, discountedFee);
+
+        return discountedFee;
+    }
 }
+
+
 
 
